@@ -3,4 +3,4 @@
 
 ### Link - 
 
-Build with ReactJS, CSS 3, HTML and marked.js library.
+Build with ReactJS, CSS 3, HTML.
