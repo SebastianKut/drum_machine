@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300&family=Raleway+Dots&display=swap');
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: 'Kumbh Sans', sans-serif;
 }
 
 #drum-machine {
@@ -10,12 +12,15 @@
   width: 650px;
   align-items: center;
   margin: 3rem auto;
-  border: 1px solid black;
+  border: 4px solid black;
+  background-color: silver;
 }
 
 #display {
-  background-color: lightblue; 
-  border: 1px solid black;
+  font-family: 'Raleway Dots', cursive;
+  font-size: large;
+  background-color: black; 
+  color: aqua;
   height: 50px;
   width: 50%;
   margin-top: 50px;
@@ -23,6 +28,31 @@
   text-align: center;
   line-height: 50px;
 }
+
+.bank-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 25px;
+}
+
+.switch-container {
+  display: flex;
+  border: 4px solid black;
+  width: 50px;
+  height: 25px;
+  padding: 2px;
+  justify-content: flex-start;
+  cursor: pointer;
+  background-color: aqua;;
+}
+
+.switch {
+  border: 1px solid black;
+  width: 50%;
+  background-color: black;
+}
+
 
 #pads {
   display: grid;
@@ -33,14 +63,16 @@
 }
 
 .drum-pad {
-  background-color: lightgray;
-  border: 1px solid black;
+  border-radius: 5px;
   width: 150px;
   height: 150px;
   margin: 25px;
-  font-size: 3rem;
+  font-size: 1.5rem;
   vertical-align: middle;
   text-align: center;
   line-height: 150px;
   cursor: pointer;
+  -webkit-box-shadow: 7px 7px 19px -3px rgba(0,0,0,0.5);
+  -moz-box-shadow: 7px 7px 19px -3px rgba(0,0,0,0.5);
+  box-shadow: 7px 7px 19px -3px rgba(0,0,0,0.5);
 }
