@@ -59,7 +59,7 @@ const bankOne = [
   audioSrc: 'https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3',
   active: false
   }
-]
+];
 
 const bankTwo = [
   {padId: 'chord1',
@@ -116,34 +116,20 @@ const bankTwo = [
   audioSrc: 'https://s3.amazonaws.com/freecodecamp/drums/Brk_Snr.mp3',
   active: false
   }
-]
+];
 
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      name: 'PRESS BUTTON OR CLICK PAD',
+      name: 'PRESS KEY OR CLICK PAD',
       pads: bankOne,
       currentBank: 'bankOne'
     };  
   }
-  
-  componentDidMount() {
-    document.addEventListener('keydown', this.handleKeyPress);
-    document.addEventListener('keyup', this.handleKeyRelease);
-    document.getElementById('pads').addEventListener('mousedown', this.handleMousePress);
-    document.getElementById('pads').addEventListener('mouseup', this.handleMouseRelease);
-  }
 
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleKeyPress);
-    document.removeEventListener('keyup', this.handleKeyRelease);
-    document.getElementById('pads').removeEventListener('mousedown', this.handleMousePress);
-    document.getElementById('pads').removeEventListener('mouseup', this.handleMouseRelease);
-  }
-
+  //play sound, display audio sample name and change pad status to active on key press 
   handleKeyPress = (e) => {
-   
     const audioId = String.fromCharCode(e.keyCode);
     if (document.getElementById(audioId) === null) {
     return
@@ -155,9 +141,10 @@ class App extends Component {
       }
   }
 
+  //change (toggle) pad state to inactive on key release
   handleKeyRelease = (e) => {
-   
     const audioId = String.fromCharCode(e.keyCode);
+    //return if pressed key is not relevant
     if (document.getElementById(audioId) === null) {
       return
       } else {
@@ -165,27 +152,34 @@ class App extends Component {
       }
   }
 
+  //play sample when pad is clicked
   handleClick = (e) => {
     this.playSound(this.getAudioId(e.target.id));
     this.displaySampleName(e.target.id);
   }
  
+  //set pad to active when mouse is pressed down
   handleMousePress = (e) => {
     this.toggleActive(this.getAudioId(e.target.id));
   }
 
+  //set pad to inactive when mouse button is released
   handleMouseRelease = (e) => {
     this.toggleActive(this.getAudioId(e.target.id));
   }
 
+  //get id of an audio sample from the relevant pad
   getAudioId = (buttonId) => document.getElementById(buttonId).firstElementChild.id;
 
+  //play sound method
   playSound = (audioId) => {
-    const sample = document.getElementById(audioId)
+    const sample = document.getElementById(audioId);
+    // do not wait for sample to finish if playSound() fires again (reset to beging and play again)
     if (!sample.paused) {sample.currentTime = 0}
     sample.play();  
   }
 
+  //get an array with the relevant pad object by filtering all pads and update state with relevant pads name
   displaySampleName = (id) => {
     const currentPad = this.state.pads.filter((pad) => pad.padId === id)[0];
     const name = currentPad.padName;
@@ -194,6 +188,7 @@ class App extends Component {
     })
   };
 
+  //toggle active pad status by going through pads array of objects and changing active status of the relevant pad object
   toggleActive = (audioId) => {
     this.setState({
       pads: this.state.pads.map((pad) => {
@@ -205,6 +200,7 @@ class App extends Component {
     })
   };
 
+  //change bank by checking currentBank state
   changeBank = () => {
     if (this.state.currentBank==='bankOne') this.setState({
       pads: bankTwo,
@@ -214,6 +210,23 @@ class App extends Component {
       pads: bankOne,
       currentBank: 'bankOne'
     });
+  }
+
+  //event listeners for keys and mouse button up and down 
+  //these update active pad state 
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleKeyPress);
+    document.addEventListener('keyup', this.handleKeyRelease);
+    document.getElementById('pads').addEventListener('mousedown', this.handleMousePress);
+    document.getElementById('pads').addEventListener('mouseup', this.handleMouseRelease);
+  }
+
+  //garbage collection
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyPress);
+    document.removeEventListener('keyup', this.handleKeyRelease);
+    document.getElementById('pads').removeEventListener('mousedown', this.handleMousePress);
+    document.getElementById('pads').removeEventListener('mouseup', this.handleMouseRelease);
   }
 
   render() {

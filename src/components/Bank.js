@@ -1,9 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Bank extends Component {
+    //move bank selector from left to right
     getStyle = () => {
         return {
-            justifyContent: this.props.currentBank==='bankOne' ? 'flex-start' : 'flex-end'
+            justifyContent: this.props.currentBank === 'bankOne' ? 'flex-start' : 'flex-end'
         }
     }
     render() {
@@ -18,6 +20,11 @@ class Bank extends Component {
             </div>
         )
     }
+}
+
+Bank.propTypes = {
+    currentBank: PropTypes.string.isRequired,
+    changeBank: PropTypes.func.isRequired
 }
 
 export default Bank

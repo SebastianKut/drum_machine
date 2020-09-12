@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Pad from '../components/Pad';
+import PropTypes from 'prop-types';
 
 class Pads extends Component {
 
@@ -13,6 +14,11 @@ class Pads extends Component {
         </div>        
         )
     }
+}
+
+Pads.propTypes = {
+    pads: PropTypes.object.isRequired,
+    handleClick: PropTypes.func.isRequired,
 }
 
 export default Pads
